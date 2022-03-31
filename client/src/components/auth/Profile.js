@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
-const Login = () => {
+const Profile = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -29,9 +29,9 @@ const Login = () => {
       const body = JSON.stringify(User);
       const res = await axios.post('api/auth', body, config);
       console.log(res.data);
-      window.location="/Profile";
+      window.location = '/Profile';
     } catch (err) {
-      swal('Sign in failed!', 'Invalid Email ID/Password', 'error');
+      swal('Login failed!', 'Invalid Email ID/Password', 'error');
     }
   };
 
@@ -70,4 +70,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Profile;

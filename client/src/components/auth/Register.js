@@ -1,6 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+// import { connect } from 'react-redux';
+// import { setAlert } from '../../actions/alert';
+// import PropTypes from 'prop-types';
 
+// const Register = ({ setAlert }) => {
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -18,11 +24,12 @@ const Register = () => {
     e.preventDefault();
     if (password !== password2) {
       console.log('Password do not match');
+      swal('Oops', 'Password do not match!', 'warning');
     } else {
       const newUser = {
         name,
         email,
-        password
+        password,
       };
       try {
         const config = {
@@ -32,7 +39,13 @@ const Register = () => {
         };
         const body = JSON.stringify(newUser);
         const res = await axios.post('api/users', body, config);
-        console.log(res.data);
+        swal({
+          title: 'Registration successful!',
+          text: 'Click on OK to sign in',
+          icon: 'success'
+        }).then(function () {
+          window.location = '/Login';
+        });
       } catch (err) {
         console.error(err.response.data);
       }
@@ -59,7 +72,7 @@ const Register = () => {
         <div className='form-group'>
           <input
             type='email'
-            placeholder='Email Address'
+            placeholder='Email ID'
             name='email'
             value={email}
             onChange={(e) => onChange(e)}
@@ -92,10 +105,15 @@ const Register = () => {
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
       <p className='my-1'>
-        Already have an account? <a href='login.html'>Sign In</a>
+        Already have an account? <Link to='./login'>Sign In</Link>
       </p>
     </Fragment>
   );
 };
 
+// Register.PropTypes = {
+//   setAlert: PropTypes.func.isRequired,
+// };
+
+// export default connect(null, { setAlert })(Register);
 export default Register;
