@@ -40,13 +40,6 @@ const UserSchema = new mongoose.Schema({
   about: {
     type: String,
   },
-  tags: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-  },
   companyName: {
     type: String,
   },

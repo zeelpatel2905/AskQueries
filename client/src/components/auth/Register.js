@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
@@ -8,14 +8,24 @@ import swal from 'sweetalert';
 
 // const Register = ({ setAlert }) => {
 const Register = () => {
+  useEffect(() => {
+    if(localStorage.getItem('user') || localStorage.getItem('type')==="admin")
+    {
+      window.history.back();
+    }
+  });
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
+    contactNo: '',
+    type:'',
+    tags:'',
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, password2, contactNo, type, tags } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,6 +40,9 @@ const Register = () => {
         name,
         email,
         password,
+        contactNo,
+        type,
+        tags,
       };
       try {
         const config = {
@@ -39,10 +52,11 @@ const Register = () => {
         };
         const body = JSON.stringify(newUser);
         const res = await axios.post('api/users', body, config);
+        console.error(res.data);
         swal({
           title: 'Registration successful!',
           text: 'Click on OK to sign in',
-          icon: 'success'
+          icon: 'success',
         }).then(function () {
           window.location = '/Login';
         });
@@ -54,15 +68,22 @@ const Register = () => {
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
       </p>
-      <form className='form' onSubmit={(e) => onSubmit(e)}>
+      <div className="ads">
+        <center>
+      <h1>Join the AskQueries community</h1><br></br>
+      <i className="bi bi-patch-question-fill"></i> Get unstuck - ask a question<br></br><br></br>
+      <i className="bi bi-star-half"></i> Unlock new privileges like voting<br></br><br></br>
+      <i className="bi bi-people-fill"></i> Share knowledge with others<br></br><br></br>
+      </center>
+      </div>
+      <form className='form' style={{marginTop:'-35%'}} onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Name'
+            placeholder='Full Name'
             name='name'
             value={name}
             onChange={(e) => onChange(e)}
@@ -77,10 +98,15 @@ const Register = () => {
             value={email}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='Contact No'
+            name='contactNo'
+            value={contactNo}
+            onChange={(e) => onChange(e)}
+          />
         </div>
         <div className='form-group'>
           <input
@@ -100,6 +126,26 @@ const Register = () => {
             value={password2}
             onChange={(e) => onChange(e)}
             minLength='6'
+          />
+        </div>
+        <div className='form-group'>
+          Profile Picture:&nbsp;
+          <input type='file' name='profileImg' onChange={(e) => onChange(e)} />
+        </div>
+        <div className='form-group'>
+          <select name='type' onChange={(e) => onChange(e)}>
+            <option value='null'>Select User Type</option>
+            <option value='recruiter'>Recruiter</option>
+            <option value='normal'>Normal</option>
+          </select>
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='Tags (react java c)'
+            name='tags'
+            value={tags}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />

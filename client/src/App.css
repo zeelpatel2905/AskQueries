@@ -1,6 +1,6 @@
 /* Global Styles */
 :root {
-  --primary-color: #17a2b8;
+  --primary-color: #3d5170;
   --dark-color: #343a40;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -13,16 +13,21 @@
   padding: 0;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
-  color: #333;
+  color: #3d5170;
+  overflow: auto;
 }
 
 a {
-  color: var(--primary-color);
+  color:  #007bff;
   text-decoration: none;
 }
 
@@ -137,6 +142,7 @@ img {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+  border-radius: 5px;
 }
 
 .badge {
@@ -160,16 +166,32 @@ img {
 .bg-primary,
 .badge-primary,
 .alert-primary {
-  background: var(--primary-color);
+  background: #007BFF;
   color: #fff;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #006fe6;
+  border-color: #006fe6;
+  box-shadow: 0 5px 15px rgb(0 0 0 / 5%), 0 4px 10px rgb(0 123 255 / 25%);
 }
 
 .btn-light,
 .bg-light,
 .badge-light,
 .alert-light {
-  background: var(--light-color);
-  color: #333;
+  background:#fff;
+  color:  #007BFF;
+  border: 1px solid;
+}
+
+.btn-light:hover {
+  color:#007BFF;
+  background-color: #fff;
+  border-color: #fff;
+  border: 1px solid;
+  box-shadow: 0 5px 15px rgb(0 0 0 / 10%), 0 4px 10px rgb(255 255 255 / 70%);
 }
 
 .btn-dark,
@@ -205,8 +227,15 @@ img {
   border: #ccc solid 1px;
 }
 
-.btn:hover {
-  opacity: 0.8;
+h{
+  font-size: 12px;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-left: 8px;
+  padding-bottom: 4px;
 }
 
 .bg-light,
@@ -226,7 +255,7 @@ img {
 
 /* Overlay */
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
   position: absolute;
   top: 0;
   left: 0;
@@ -242,9 +271,18 @@ img {
 .form .form-text {
   display: block;
   margin-top: 0.3rem;
-  color: #888;
+  color: rgb(0, 0, 0);
 }
 
+.ads{
+  margin-left: 60%;
+  margin-top: 15%;
+}
+
+.adsquestion{
+  margin-left: 60%;
+  margin-top: -45%;
+}
 .form input[type='text'],
 .form input[type='email'],
 .form input[type='password'],
@@ -252,7 +290,7 @@ img {
 .form select,
 .form textarea {
   display: block;
-  width: 100%;
+  width: 50%;
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
@@ -306,10 +344,10 @@ button {
   padding: 0.7rem 2rem;
   position: fixed;
   z-index: 1;
-  width: 100%;
+  width: 101%;
   top: 0;
-  border-bottom: solid 1px var(--primary-color);
-  opacity: 0.9;
+  border-bottom: solid 1px var(#F4F5F7);
+  /* opacity: 0.9; */
 }
 
 .navbar ul {
@@ -317,13 +355,13 @@ button {
 }
 
 .navbar a {
-  color: #fff;
+  color: #007bff;
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
 
 .navbar a:hover {
-  color: var(--primary-color);
+  color: #333;
 }
 
 .navbar .welcome span {
@@ -338,7 +376,7 @@ button {
 }
 
 .landing-inner {
-  color: #fff;
+  color: #3d5170;
   height: 100%;
   width: 80%;
   margin: auto;
@@ -524,6 +562,7 @@ button {
 
   .navbar h1 {
     margin-bottom: 1rem;
+    color:#4C5F7B;
   }
 
   .navbar .welcome {
