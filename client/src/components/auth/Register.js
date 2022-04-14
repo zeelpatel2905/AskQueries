@@ -8,12 +8,26 @@ import swal from 'sweetalert';
 
 // const Register = ({ setAlert }) => {
 const Register = () => {
-  useEffect(() => {
-    if(localStorage.getItem('user') || localStorage.getItem('type')==="admin")
-    {
+  const [data, setData] = useState([]);
+  useEffect(async () => {
+    if (
+      localStorage.getItem('user') ||
+      localStorage.getItem('type') === 'admin'
+    ) {
       window.history.back();
     }
-  });
+    const email = localStorage.getItem('user');
+    const Email = {
+      email,
+    };
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.get('api/tag');
+    setData(res.data.data);
+  }, []);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -21,8 +35,8 @@ const Register = () => {
     password: '',
     password2: '',
     contactNo: '',
-    type:'',
-    tags:'',
+    type: '',
+    tags: '',
   });
 
   const { name, email, password, password2, contactNo, type, tags } = formData;
@@ -71,15 +85,26 @@ const Register = () => {
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
       </p>
-      <div className="ads">
+      <div className='ads'>
         <center>
-      <h1>Join the AskQueries community</h1><br></br>
-      <i className="bi bi-patch-question-fill"></i> Get unstuck - ask a question<br></br><br></br>
-      <i className="bi bi-star-half"></i> Unlock new privileges like voting<br></br><br></br>
-      <i className="bi bi-people-fill"></i> Share knowledge with others<br></br><br></br>
-      </center>
+          <h1>Join the AskQueries community</h1>
+          <br></br>
+          <i className='bi bi-patch-question-fill'></i> Get unstuck - ask a
+          question<br></br>
+          <br></br>
+          <i className='bi bi-star-half'></i> Unlock new privileges like voting
+          <br></br>
+          <br></br>
+          <i className='bi bi-people-fill'></i> Share knowledge with others
+          <br></br>
+          <br></br>
+        </center>
       </div>
-      <form className='form' style={{marginTop:'-35%'}} onSubmit={(e) => onSubmit(e)}>
+      <form
+        className='form'
+        style={{ marginTop: '-35%' }}
+        onSubmit={(e) => onSubmit(e)}
+      >
         <div className='form-group'>
           <input
             type='text'
@@ -97,6 +122,7 @@ const Register = () => {
             name='email'
             value={email}
             onChange={(e) => onChange(e)}
+            required
           />
         </div>
         <div className='form-group'>
@@ -106,6 +132,7 @@ const Register = () => {
             name='contactNo'
             value={contactNo}
             onChange={(e) => onChange(e)}
+            required
           />
         </div>
         <div className='form-group'>
@@ -116,6 +143,7 @@ const Register = () => {
             value={password}
             onChange={(e) => onChange(e)}
             minLength='6'
+            required
           />
         </div>
         <div className='form-group'>
@@ -126,11 +154,8 @@ const Register = () => {
             value={password2}
             onChange={(e) => onChange(e)}
             minLength='6'
+            required
           />
-        </div>
-        <div className='form-group'>
-          Profile Picture:&nbsp;
-          <input type='file' name='profileImg' onChange={(e) => onChange(e)} />
         </div>
         <div className='form-group'>
           <select name='type' onChange={(e) => onChange(e)}>
@@ -140,13 +165,11 @@ const Register = () => {
           </select>
         </div>
         <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Tags (react java c)'
-            name='tags'
-            value={tags}
-            onChange={(e) => onChange(e)}
-          />
+          <select name='tags' onChange={(e) => onChange(e)} value={tags}>
+            {data.map((data) => (
+              <option value={data.tagName}>{data.tagName}</option>
+            ))}
+          </select>
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>

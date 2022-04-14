@@ -39,7 +39,7 @@ const Tag = () => {
         },
       };
       const body = JSON.stringify(Tag);
-      const res = await axios.post('api/auth', body, config);
+      const res = await axios.post('api/tag', body, config);
       console.log(res.data);
       swal('Done!', 'New tag added successfully', 'success');
     } catch (err) {

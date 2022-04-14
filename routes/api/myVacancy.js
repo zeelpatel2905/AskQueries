@@ -1,26 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const Question = require('../../models/Question');
-const User = require('../../models/User');
+var ObjectID = require('mongodb').ObjectID;
 const { check, validationResult } = require('express-validator');
+const Job = require('../../models/Job');
 
 // @route POST api/question
-// @desc Post Question
+// @desc Post Job
 // @access Public
 router.post(
   '/',
   [check('email', 'Please provide valid email id').isEmail()],
   async (req, res) => {
     const { email } = req.body;
-    let user = await User.findOne({ email: email });
-    let uname = user.name;
-    Question.find({ uid: { $ne: email } }, (err, Question) => {
+    Job.find({ rid: email }, (err, Job) => {
       if (err) {
         return res.json({ err: err });
-      } else if (Question == null) {
-        return res.json({ err: 'No questions available' });
+      } else if (Job == null) {
+        return res.json({ err: 'No jobs available' });
       } else {
-        return res.json({ data: Question });
+        return res.json({ data: Job });
       }
     });
   }

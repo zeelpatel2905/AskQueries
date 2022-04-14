@@ -12,7 +12,7 @@ const Landing = () => {
     }
     if(localStorage.getItem('type')==="recruiter")
     {
-      window.location='/company';
+      window.location='/vacancy';
     }
   });
   return (

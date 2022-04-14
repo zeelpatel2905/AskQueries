@@ -9,12 +9,10 @@ const { check, validationResult } = require('express-validator');
 // @access Public
 router.post(
   '/',
-  [check('email', 'Please provide valid email id').isEmail()],
+  [check('id', 'Please provide id').isEmpty()],
   async (req, res) => {
-    const { email } = req.body;
-    let user = await User.findOne({ email: email });
-    let uname = user.name;
-    Question.find({ uid: { $ne: email } }, (err, Question) => {
+    const { id } = req.body;
+    Question.find({ _id: id }, (err, Question) => {
       if (err) {
         return res.json({ err: err });
       } else if (Question == null) {

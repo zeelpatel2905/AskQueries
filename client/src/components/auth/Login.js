@@ -36,13 +36,13 @@ const Login = () => {
       console.log(res.data);
       localStorage.setItem('user', res.data.email);
       console.log(res.data.token);
-      axios.defaults.headers.common['x-auth-token'] = res.data.token;
+      // axios.defaults.headers.common['x-auth-token'] = res.data.token;
       localStorage.setItem('token', res.data.token);
       // setAuthToken(localStorage.token);
       localStorage.setItem('type', res.data.type);
-      if (res.data.type === 'admin') window.location = '/#';
+      if (res.data.type === 'admin') window.location = '/tags';
       if (res.data.type === 'normal') window.location = '/question';
-      if (res.data.type === 'recruiter') window.location = '/#';
+      if (res.data.type === 'recruiter') window.location = '/vacancy';
     } catch (err) {
       swal('Sign in failed!', 'Invalid email id/password', 'error');
     }

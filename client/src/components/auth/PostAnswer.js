@@ -3,29 +3,24 @@ import axios from 'axios';
 //import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
-const AskQuestion = () => {
-  const [data, setData] = useState([]);
-  useEffect(async () => {
+const PostAnswer = () => {
+  useEffect(() => {
     if (
       localStorage.getItem('user') &&
       localStorage.getItem('type') === 'admin'
     ) {
       window.history.back();
     }
-    const res = await axios.get('api/tag');
-    setData(res.data.data);
   });
-  const [formData, setFormData] = useState(
-    {
-      uid: '',
-      title: '',
-      body: '',
-      tags: '',
-    },
-    []
-  );
+  const [formData, setFormData] = useState({
+    uid:'',
+    title: '',
+    body: '',
+    tags: '',
+    answerCount:'',
+  });
 
-  const { uid, title, body, tags } = formData;
+  const { uid,title, body, tags, answerCount } = formData;
 
   const onClick = (e) => {
     window.location = '/askquestion';
@@ -38,7 +33,7 @@ const AskQuestion = () => {
     e.preventDefault();
     try {
       const Question = {
-        uid: localStorage.getItem('user'),
+        uid:localStorage.getItem('user'),
         title,
         body,
         tags,
@@ -70,11 +65,7 @@ const AskQuestion = () => {
       </h1>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
-          <input
-            type='hidden'
-            name='uid'
-            value={localStorage.getItem('user')}
-          />
+        <input type='hidden' name='uid' value={localStorage.getItem('user')}/>
           <p>
             Be specific and imagine you’re asking a question to another person
           </p>
@@ -102,12 +93,15 @@ const AskQuestion = () => {
             required
           />
           <div className='form-group'>
-            <p>Tags to describe what your question is about</p>
-            <select name='tags' onChange={(e) => onChange(e)} value={tags}>
-              {data.map((data) => (
-                <option value={data.tagName}>{data.tagName}</option>
-              ))}
-            </select>
+            <p>Add tags to describe what your question is about</p>
+            <input
+              type='text'
+              placeholder='Tags (react java c)'
+              name='tags'
+              value={tags}
+              onChange={(e) => onChange(e)}
+              required
+            />
           </div>
         </div>
         <input type='submit' className='btn btn-primary' value='Submit' />
@@ -152,4 +146,4 @@ const AskQuestion = () => {
   );
 };
 
-export default AskQuestion;
+export default PostAnswer;

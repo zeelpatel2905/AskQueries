@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 
 const Profile = () => {
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   useEffect(async () => {
     if (!localStorage.getItem('user')) {
       window.history.back();
@@ -21,14 +22,24 @@ const Profile = () => {
     const body = JSON.stringify(Email);
     const res = await axios.post('api/profile', body, config);
     setData(res.data.data);
+    const res1 = await axios.get('api/tag');
+    setData2(res1.data.data);
   }, []);
 
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
-    password: '',
+    contactNo: '',
+    address: '',
+    city: '',
+    state: '',
+    pinCode: '',
+    about: '',
+    tags: '',
   });
 
-  const { email, password } = formData;
+  const { name, email, contactNo, address, city, state, pinCode, about, tags } =
+    formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,8 +48,15 @@ const Profile = () => {
     e.preventDefault();
     try {
       const User = {
-        email,
-        password,
+        name,
+        email: localStorage.getItem('user'),
+        contactNo,
+        address,
+        city,
+        state,
+        pinCode,
+        about,
+        tags,
       };
       const config = {
         headers: {
@@ -46,36 +64,114 @@ const Profile = () => {
         },
       };
       const body = JSON.stringify(User);
-      const res = await axios.post('api/auth', body, config);
+      const res = await axios.patch('api/profile', body, config);
       console.log(res.data);
-      window.location = '/Profile';
+      swal({
+        title: 'Done!',
+        text: 'Profile updated successfully',
+        icon: 'success',
+      }).then(function () {
+        window.location = '/Profile';
+      });
     } catch (err) {
-      swal('Login failed!', 'Invalid Email ID/Password', 'error');
+      swal('Oops!', 'Something went wrong', 'error');
     }
   };
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>
-        <i className='bi bi-person-badge-fill'></i> Profile
-      </h1>
-      <table style={{ lineHeight: '30px', paddingTop: '15px' }}>
-        <tbody>
+      <center>
+        <h1 className='large text-primary'>
+          <i className='bi bi-person-badge-fill'></i> Profile
+        </h1>
+        <form className='form' onSubmit={(e) => onSubmit(e)}>
           {data.map((data) => (
-            <tr key={data.email}>
-              <td>
-                <p style={{ fontSize: '20px', color: '#007BFF' }}>
-                  {data.name}
-                </p>
-                <h>{data.contactNo}</h>
-                <p style={{ fontSize: '12px', color: 'grey' }}>
-                  {data.tags} views&nbsp;
-                </p>
-              </td>
-            </tr>
+            <div key={data.name} className='form-group'>
+              <h2>
+                {data.email}({data.type})
+              </h2>
+              <i className='bi bi-at'></i> Name:<br></br>
+              <input
+                type='text'
+                placeholder={data.name}
+                name='name'
+                defaultValue={data.name}
+                value={name}
+                onChange={(e) => onChange(e)}
+                pattern='^[a-zA-Z ]*$'
+                title='Name should not contain digits'
+              />
+              <i className='bi bi-telephone-fill'></i> Contact No:<br></br>
+              <input
+                type='text'
+                placeholder={data.contactNo}
+                name='contactNo'
+                defaultValue={data.contactNo}
+                value={contactNo}
+                onChange={(e) => onChange(e)}
+                pattern='^[789]\d{9}$'
+                title='Invalid: Only digits of length 10'
+              />
+              <i className='bi bi-info-circle-fill'></i> About You:
+              <textarea
+                placeholder={data.about}
+                name='about'
+                defaultValue={data.about}
+                value={about}
+                onChange={(e) => onChange(e)}
+              />
+              <i className='bi bi-geo-alt-fill'></i> Address:<br></br>
+              <input
+                type='text'
+                placeholder={data.address}
+                name='address'
+                defaultValue={data.address}
+                value={address}
+                onChange={(e) => onChange(e)}
+              />
+              <i className='bi bi-chevron-right'></i> City:<br></br>
+              <input
+                type='text'
+                placeholder={data.city}
+                name='city'
+                defaultValue={data.city}
+                value={city}
+                onChange={(e) => onChange(e)}
+              />
+              <i className='bi bi-house-door-fill'></i> State:<br></br>
+              <input
+                type='text'
+                placeholder={data.state}
+                defaultValue={data.state}
+                name='state'
+                value={state}
+                onChange={(e) => onChange(e)}
+              />
+              <i className='bi bi-geo-fill'></i> Pincode:<br></br>
+              <input
+                type='text'
+                placeholder={data.pinCode}
+                defaultValue={data.pinCode}
+                name='pinCode'
+                value={pinCode}
+                onChange={(e) => onChange(e)}
+                pattern='^[1-9][0-9]{5}$'
+                title='Only digits of length 6'
+              />
+              <i className='bi bi-tag-fill'></i> Tags:<br></br>
+              <select name='tags' onChange={(e) => onChange(e)} value={tags}>
+                {data2.map((data2) => (
+                  <option key={data2.tagName} value={data2.tagName}>
+                    {data2.tagName}
+                  </option>
+                ))}
+              </select>
+              <br></br>
+              <input type='submit' className='btn btn-primary' value='Update' />
+            </div>
           ))}
-        </tbody>
-      </table>
+        </form>
+      </center>
     </Fragment>
   );
 };

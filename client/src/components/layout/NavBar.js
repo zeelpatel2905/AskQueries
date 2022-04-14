@@ -18,16 +18,6 @@ const NavBar = () => {
         </h1>
         <ul>
           <li>
-            <Link to='/question'>
-              <i className='bi bi-question-square'> Question</i>
-            </Link>
-          </li>
-          <li>
-            <Link to='/company'>
-              <i className='bi bi-building'> Companies</i>
-            </Link>
-          </li>
-          <li>
             <Link to='/register'>
               <i className='bi bi-person-plus'> Sign up</i>
             </Link>
@@ -64,7 +54,7 @@ const NavBar = () => {
           </li>
           <li>
             <Link to='/myquestion'>
-            <i className="bi bi-question-circle-fill"> My Questions</i>
+              <i className='bi bi-question-circle-fill'> My Questions</i>
             </Link>
           </li>
           <li>
@@ -102,9 +92,14 @@ const NavBar = () => {
           </Link>
         </h1>
         <ul>
+        <li>
+            <Link to='/vacancy'>
+            <i class="bi bi-door-open-fill"> Vacancy</i>
+            </Link>
+          </li>
           <li>
-            <Link to='/question'>
-              <i className='bi bi-question-square'> Question</i>
+            <Link to='/applicant'>
+            <i class="bi bi-person-video2"> Applicant</i>
             </Link>
           </li>
           <li>
@@ -136,10 +131,16 @@ const NavBar = () => {
             <img src={logo} alt='askqueries' />
           </Link>
         </h1>
+
         <ul>
           <li>
-            <Link to='/tag'>
+            <Link to='/tags'>
               <i className='bi bi-tag'> Tags</i>
+            </Link>
+          </li>
+          <li>
+            <Link to='/#'>
+              <i className='bi bi-file-earmark-break'> Reports</i>
             </Link>
           </li>
           <li>

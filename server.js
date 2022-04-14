@@ -18,7 +18,12 @@ app.use('/api/question', require('./routes/api/question'));
 app.use('/api/myquestion', require('./routes/api/myquestion'));
 app.use('/api/askquestion', require('./routes/api/askquestion'));
 app.use('/api/company', require('./routes/api/company'));
+app.use('/api/postVacancy', require('./routes/api/postVacancy'));
+app.use('/api/myVacancy', require('./routes/api/myVacancy'));
 app.use('/api/about', require('./routes/api/about'));
+app.use('/api/answer', require('./routes/api/answer'));
+app.use('/api/postAnswer', require('./routes/api/postAnswer'));
+app.use('/api/answerID', require('./routes/api/answerID'));
 
 const PORT = process.env.PORT || 5000;
 

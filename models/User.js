@@ -14,9 +14,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  profilePhoto: {
-    type: String,
-  },
   date: {
     type: Date,
     default: Date.now,
@@ -27,27 +24,28 @@ const UserSchema = new mongoose.Schema({
   },
   address: {
     type: String,
+    default: '',
   },
   city: {
     type: String,
+    default: '',
   },
   state: {
     type: String,
+    default: '',
   },
   pinCode: {
     type: String,
+    default: '',
   },
   about: {
     type: String,
+    default: '',
   },
   tags: {
     type: String,
-    required: true,
   },
   type: {
-    type: String,
-  },
-  companyName: {
     type: String,
   },
   status: {

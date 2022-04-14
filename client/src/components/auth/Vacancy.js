@@ -1,17 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
-const Company = () => {
+const Vacancy = () => {
   const [data, setData] = useState([]);
   useEffect(async () => {
-    if(localStorage.getItem('user') && localStorage.getItem('type')==="recruiter")
-    {
-      window.history.back();
-    }
-    if(localStorage.getItem('user') && localStorage.getItem('type')==="admin")
-    {
+    if (
+      localStorage.getItem('user') &&
+      localStorage.getItem('type') === 'admin'
+    ) {
       window.history.back();
     }
     const email = localStorage.getItem('user');
@@ -23,15 +21,22 @@ const Company = () => {
         'Content-Type': 'application/json',
       },
     };
-    const res = await axios.get('api/company');
+    const body = JSON.stringify(Email);
+    const res = await axios.post('api/myVacancy', body, config);
     setData(res.data.data);
   }, []);
 
+  const onClick = (e) => {
+    window.location = '/postVacancy';
+  };
   return (
     <Fragment>
-      <table style={{ lineHeight: '40px', paddingTop: '15px'}}>
+      <button className='btn btn-primary' onClick={(e) => onClick(e)}>
+        Post Vacancy
+      </button>
+      <table style={{ lineHeight: '30px', paddingTop: '15px'}}>
         <tbody>
-          {data.map((data) => (
+        {data.map((data) => (
             <tr key={data.jobTitle}>
               <td style={{borderBottom:' rgb(204 204 204) solid 1px'}}>
                 <p style={{ fontSize: '20px', color: '#007BFF' }}>
@@ -43,9 +48,6 @@ const Company = () => {
                 <i class="bi bi-person-workspace"></i> Minimum Experience: {data.expMin}<br></br>
                   <i class="bi bi-geo-alt-fill"></i> Location: {data.location}<br></br>
                 </p>
-                <center>
-                <Link to={'/apply?id='+data._id}><i class="bi bi-arrow-right"></i> Apply Now <i class="bi bi-arrow-left"></i></Link>
-                </center>
               </td>
             </tr>
           ))}
@@ -55,4 +57,4 @@ const Company = () => {
   );
 };
 
-export default Company;
+export default Vacancy;

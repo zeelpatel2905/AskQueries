@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import axios from 'axios';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const MyQuestion = () => {
   const [data, setData] = useState([]);
@@ -31,21 +31,24 @@ const MyQuestion = () => {
     setData(res.data.data);
   }, []);
 
+  const onAnswer = (e, data) => {
+    window.location = 'answer?id=' + data._id;
+  };
   return (
     <Fragment>
       <table style={{ lineHeight: '30px', paddingTop: '15px' }}>
         <tbody>
           {data.map((data) => (
             <tr key={data.title}>
-              <td>
+              <td style={{ borderBottom: ' rgb(204 204 204) solid 1px' }}>
                 <p style={{ fontSize: '20px', color: '#007BFF' }}>
-                  {data.title}
+                  <Link onClick={(e) => onAnswer(e, data)}>{data.title}</Link>
+                </p>
+                <p style={{ fontSize: '12px', color: 'grey' }}>
+                  <i class='bi bi-person-fill'></i>
+                  {data.uid}
                 </p>
                 <h>{data.tags}</h>
-                <p style={{ fontSize: '12px', color: 'grey' }}>
-                  {data.views} views&nbsp;
-                  {data.answerCount} answers
-                </p>
               </td>
             </tr>
           ))}

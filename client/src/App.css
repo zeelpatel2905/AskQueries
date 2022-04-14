@@ -24,6 +24,7 @@ body {
   background-color: #fff;
   color: #3d5170;
   overflow: auto;
+  padding-bottom: 10px;
 }
 
 a {
@@ -350,6 +351,47 @@ button {
   /* opacity: 0.9; */
 }
 
+.footer {
+  /* display: flex; */
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  position: fixed;
+  z-index: 1;
+  width: 101%;
+  bottom: 0;
+  border-bottom: solid 1px var(#F4F5F7);
+  /* opacity: 0.9; */
+}
+.sidenav {
+  text-align: center;
+  border-right: rgb(204 204 204) solid 1px;
+  opacity: 0.9;
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 200px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  margin-top: 4.5%; 
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  color: #818181;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #000000;
+}
 .navbar ul {
   display: flex;
 }

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const AnswerSchema = new mongoose.Schema({
+  qid:{
+    type:String,
+  },
   uid: {
     type: String,
     required: true,

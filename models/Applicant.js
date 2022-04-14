@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ApplicantSchema = new mongoose.Schema({
-  rid: {
+  cid: {
     type: String,
     required: true,
   },
@@ -9,9 +9,14 @@ const ApplicantSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  education: {
+  education10th: {
     type: String,
-    required: true,
+  },
+  education12th: {
+    type: String,
+  },
+  educationCollege: {
+    type: String,
   },
   experience: {
     type: String,

@@ -6,6 +6,21 @@ const Tag=require('../../models/Tag');
 // @route POST api/tag
 // @desc Add Tag
 // @access Public
+router.get(
+    '/',
+    async (req, res) => {
+      Tag.find((err, Tag) => {
+        if (err) {
+          return res.json({ err: err });
+        } else if (Tag == null) {
+          return res.json({ err: 'No tags available' });
+        } else {
+          return res.json( {data: Tag});
+        }
+      });
+    }
+  );
+
 router.post('/',[
     check('tagName','Tag Name is required').not().isEmpty(),
     check('usageGuide','Usage Guide is required').not().isEmpty(),
